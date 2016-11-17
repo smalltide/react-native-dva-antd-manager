@@ -7,8 +7,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^3.6.1",
     "react": "15.3.2",
-    "react-native": "0.37.0"
+    "react-native": "0.37.0",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0"
   },
   "jest": {
     "preset": "jest-react-native"
