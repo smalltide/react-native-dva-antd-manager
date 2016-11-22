@@ -2,6 +2,10 @@
 use react native, redux, redux thunk, navigator router, Google firebase and lodash to create a team manager app
 
 ![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot.png "react-native-manager")
+![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot2.png "react-native-manager")
+![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot3.png "react-native-manager")
+![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot4.png "react-native-manager")
+![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot5.png "react-native-manager")
 
 1. react native
 2. redux
