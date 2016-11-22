@@ -37,6 +37,16 @@ export const loginUser = ({ email, password }) => {
   };
 };
 
+export const checkUserLogin = (user) => {
+  return (dispatch) => {
+    if (user) {
+      loginUserSuccess(dispatch, user);
+    } else {
+      Actions.auth();
+    }
+  };
+};
+
 const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
 };

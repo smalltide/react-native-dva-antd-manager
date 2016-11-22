@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import firebase from 'firebase';
+import { emailChanged, passwordChanged, loginUser, checkUserLogin } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.props.checkUserLogin(user);
+    });
+  }
 
   onEmailChange(text) {
     this.props.emailChanged(text);
@@ -81,5 +87,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser
+  emailChanged, passwordChanged, loginUser, checkUserLogin
 })(LoginForm);
