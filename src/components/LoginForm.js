@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+import {
+  WhiteSpace,
+  WingBlank,
+  InputItem,
+  Button,
+  ActivityIndicator,
+  List
+} from 'antd-mobile';
+
 import { emailChanged, passwordChanged, loginUser, checkUserLogin } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
   componentWillMount() {
@@ -28,11 +36,11 @@ class LoginForm extends Component {
 
   renderButton() {
     if (this.props.loading) {
-      return <Spinner size="large" />;
+      return <ActivityIndicator size="large" />;
     }
 
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
+      <Button type="primary" onClick={this.onButtonPress.bind(this)}>
         Login
       </Button>
     );
@@ -40,34 +48,37 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <Card>
-        <CardSection>
-          <Input
-            label="Email"
-            placeholder="email.gmail.com"
-            onChangeText={this.onEmailChange.bind(this)}
-            value={this.props.email}
-          />
-        </CardSection>
+      <List>
+        <InputItem
+          clear
+          value={this.props.email}
+          onChange={this.onEmailChange.bind(this)}
+          placeholder="email.gmail.com"
+          labelNumber={5}
+        >
+          Email
+        </InputItem>
 
-        <CardSection>
-          <Input
-            secureTextEntry
-            label="Password"
-            placeholder="password"
-            onChangeText={this.onPasswordChange.bind(this)}
-            value={this.props.password}
-          />
-        </CardSection>
+        <InputItem
+          clear
+          type="password"
+          value={this.props.password}
+          onChange={this.onPasswordChange.bind(this)}
+          placeholder="password"
+          labelNumber={5}
+        >
+          Password
+        </InputItem>
 
-        <Text style={styles.errorTextStyle}>
-          {this.props.error}
-        </Text>
+        <WingBlank>
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
 
-        <CardSection>
           {this.renderButton()}
-        </CardSection>
-      </Card>
+          <WhiteSpace />
+        </WingBlank>
+      </List>
     );
   }
 }

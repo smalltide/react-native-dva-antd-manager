@@ -1,22 +1,23 @@
-# react-native-manager
-use react native, redux, redux thunk, navigator router, Google firebase and lodash to create a team manager app
+# react-native-antd-manager
+use react native, antd-mobile UI, redux, redux thunk, navigator router, Google firebase and lodash to create a team manager app
 
-![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot.png "react-native-manager")
-![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot2.png "react-native-manager")
-![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot3.png "react-native-manager")
-![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot4.png "react-native-manager")
-![alt text](https://github.com/smalltide/react-native-manager/blob/master/screenshot5.png "react-native-manager")
+![alt text](https://github.com/smalltide/react-native-antd-manager/blob/master/screenshot.png "react-native-antd-manager")
+![alt text](https://github.com/smalltide/react-native-antd-manager/blob/master/screenshot2.png "react-native-antd-manager")
+![alt text](https://github.com/smalltide/react-native-antd-manager/blob/master/screenshot3.png "react-native-antd-manager")
+![alt text](https://github.com/smalltide/react-native-antd-manager/blob/master/screenshot4.png "react-native-antd-manager")
+![alt text](https://github.com/smalltide/react-native-antd-manager/blob/master/screenshot5.png "react-native-antd-manager")
 
 1. react native
-2. redux
-3. redux-thunk
-4. react-native-router-flux
-5. Google firebase
-6. lodash
+2. antd-mobile UI
+3. redux
+4. redux-thunk
+5. react-native-router-flux
+6. Google firebase
+7. lodash
 
 ```
-  > git clone git@github.com:smalltide/react-native-manager.git
-  > cd react-native-manager
+  > git clone git@github.com:smalltide/react-native-antd-manager.git
+  > cd react-native-antd-manager
   > npm install
   > react-native run-ios
   > react-native run-android

@@ -2,9 +2,16 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { text } from 'react-native-communications';
+import {
+  WhiteSpace,
+  WingBlank,
+  Button,
+  List,
+  Modal,
+  Flex
+} from 'antd-mobile';
 import { employeeUpdate, employeeSave, employeeDelete, clearEmployeeForm } from '../actions';
 import EmployeeForm from './EmployeeForm';
-import { Card, CardSection, Button, Confirm } from './common';
 
 class EmployeeEdit extends Component {
   state = { showModal: false };
@@ -19,7 +26,7 @@ class EmployeeEdit extends Component {
     this.props.clearEmployeeForm();
   }
 
-  onButtonPress() {
+  onSaveButtonPress() {
     const { name, phone, shift } = this.props;
 
     this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid });
@@ -29,6 +36,10 @@ class EmployeeEdit extends Component {
     const { phone, shift } = this.props;
 
     text(phone, `Your upcoming shift is on ${shift}`);
+  }
+
+  onDeleteButtonPress() {
+    this.setState({ showModal: !this.state.showModal });
   }
 
   onAccept() {
@@ -44,34 +55,43 @@ class EmployeeEdit extends Component {
 
   render() {
     return (
-      <Card>
+      <List>
         <EmployeeForm />
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
+        <WingBlank>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.onSaveButtonPress.bind(this)}>
             Save
           </Button>
-        </CardSection>
-
-        <CardSection>
-          <Button onPress={this.onTextPress.bind(this)}>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.onTextPress.bind(this)}>
             Text Schedule
           </Button>
-        </CardSection>
-
-        <CardSection>
-          <Button onPress={() => this.setState({ showModal: !this.state.showModal })}>
+          <WhiteSpace />
+          <Button type="primary" onClick={this.onDeleteButtonPress.bind(this)}>
             Delete Employee
           </Button>
-        </CardSection>
+          <WhiteSpace />
+        </WingBlank>
 
-        <Confirm
+        <Modal
+          style={{ height: 100, width: 350 }}
+          title="Are you sure you want to delete this?"
+          transparent
           visible={this.state.showModal}
-          onAccept={this.onAccept.bind(this)}
-          onDecline={this.onDecline.bind(this)}
         >
-          Are you sure you want to delete this?
-        </Confirm>
-      </Card>
+          <WingBlank>
+            <WhiteSpace size="sm" />
+            <Flex>
+              <Flex.Item style={{ paddingLeft: 4, paddingRight: 4 }}>
+                <Button type="primary" inline onClick={this.onAccept.bind(this)}>Yes</Button>
+              </Flex.Item>
+              <Flex.Item style={{ paddingLeft: 4, paddingRight: 4 }}>
+                <Button type="primary" inline onClick={this.onDecline.bind(this)}>No</Button>
+              </Flex.Item>
+            </Flex>
+          </WingBlank>
+        </Modal>
+      </List>
     );
   }
 }

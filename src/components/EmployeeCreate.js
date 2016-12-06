@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button } from './common';
+import {
+  WhiteSpace,
+  WingBlank,
+  Button,
+  List
+} from 'antd-mobile';
 import { employeeCreate } from '../actions';
 import EmployeeForm from './EmployeeForm';
 
@@ -13,14 +18,16 @@ class EmployeeCreate extends Component {
 
   render() {
     return (
-      <Card>
+      <List>
         <EmployeeForm />
-        <CardSection>
-          <Button onPress={this.onButtonPress.bind(this)}>
+        <WhiteSpace />
+        <WingBlank>
+          <Button type="primary" onClick={this.onButtonPress.bind(this)}>
             Create
           </Button>
-        </CardSection>
-      </Card>
+        </WingBlank>
+        <WhiteSpace />
+      </List>
     );
   }
 }

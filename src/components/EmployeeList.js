@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { ListView, List } from 'antd-mobile';
+import { Actions } from 'react-native-router-flux';
 import { employeesFetch } from '../actions';
-import ListItem from './ListItem';
 
 class EmployeeList extends Component {
   componentWillMount() {
@@ -12,7 +12,7 @@ class EmployeeList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-     this.createDataSource(nextProps);
+    this.createDataSource(nextProps);
   }
 
   createDataSource({ employees }) {
@@ -24,7 +24,15 @@ class EmployeeList extends Component {
   }
 
   renderRow(employee) {
-    return <ListItem employee={employee} />;
+    return (
+      <List.Item
+        onClick={() => Actions.employeeEdit({ employee })}
+        extra="More"
+        arrow="horizontal"
+      >
+        {employee.name}
+      </List.Item>
+    );
   }
 
   render() {
@@ -43,7 +51,7 @@ const mapStateToProps = (state) => {
     return { ...val, uid };
   });
 
-  return { employees };
+return { employees };
 };
 
 export default connect(mapStateToProps, { employeesFetch })(EmployeeList);
