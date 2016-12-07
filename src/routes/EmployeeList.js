@@ -1,13 +1,15 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'dva/mobile';
 import { ListView, List } from 'antd-mobile';
 import { Actions } from 'react-native-router-flux';
-import { employeesFetch } from '../actions';
 
 class EmployeeList extends Component {
   componentWillMount() {
-    this.props.employeesFetch();
+    this.props.dispatch({
+      type: 'Employee/fetch'
+    });
+
     this.createDataSource(this.props);
   }
 
@@ -46,12 +48,11 @@ class EmployeeList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const employees = _.map(state.employees, (val, uid) => {
+const mapStateToProps = ({ Employee }) => {
+  const employees = _.map(Employee, (val, uid) => {
     return { ...val, uid };
   });
-
-return { employees };
+  return { employees };
 };
 
-export default connect(mapStateToProps, { employeesFetch })(EmployeeList);
+export default connect(mapStateToProps)(EmployeeList);

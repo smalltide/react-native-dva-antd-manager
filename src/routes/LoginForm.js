@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text } from 'react-native';
-import { connect } from 'react-redux';
+import { connect } from 'dva/mobile';
 import firebase from 'firebase';
 import {
   WhiteSpace,
@@ -11,76 +11,80 @@ import {
   List
 } from 'antd-mobile';
 
-import { emailChanged, passwordChanged, loginUser, checkUserLogin } from '../actions';
+function LoginForm({ email, password, error, loading, dispatch }) {
 
-class LoginForm extends Component {
-  componentWillMount() {
+  function componentWillMount() {
     firebase.auth().onAuthStateChanged((user) => {
       this.props.checkUserLogin(user);
     });
   }
 
-  onEmailChange(text) {
-    this.props.emailChanged(text);
+  function onEmailChange(text) {
+    dispatch({
+      type: 'Auth/emailChanged',
+      payload: text,
+    });
   }
 
-  onPasswordChange(text) {
-    this.props.passwordChanged(text);
+  function onPasswordChange(text) {
+    dispatch({
+      type: 'Auth/passwordChanged',
+      payload: text,
+    });
   }
 
-  onButtonPress() {
-    const { email, password } = this.props;
-
-    this.props.loginUser({ email, password });
+  function onLogin() {
+    dispatch({
+      type: 'Auth/loginUser',
+      payload: { email, password }
+    });
   }
 
-  renderButton() {
-    if (this.props.loading) {
+  function renderButton() {
+    if (loading) {
       return <ActivityIndicator size="large" />;
     }
 
     return (
-      <Button type="primary" onClick={this.onButtonPress.bind(this)}>
+      <Button type="primary" onClick={onLogin}>
         Login
       </Button>
     );
   }
 
-  render() {
-    return (
-      <List>
-        <InputItem
-          clear
-          value={this.props.email}
-          onChange={this.onEmailChange.bind(this)}
-          placeholder="email.gmail.com"
-          labelNumber={5}
-        >
-          Email
-        </InputItem>
+  return (
+    <List>
+      <InputItem
+        clear
+        value={email}
+        onChange={onEmailChange}
+        placeholder="email.gmail.com"
+        labelNumber={5}
+      >
+        Email
+      </InputItem>
 
-        <InputItem
-          clear
-          type="password"
-          value={this.props.password}
-          onChange={this.onPasswordChange.bind(this)}
-          placeholder="password"
-          labelNumber={5}
-        >
-          Password
-        </InputItem>
+      <InputItem
+        clear
+        type="password"
+        value={password}
+        onChange={onPasswordChange}
+        placeholder="password"
+        labelNumber={5}
+      >
+        Password
+      </InputItem>
 
-        <WingBlank>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+      <WingBlank>
+        <Text style={styles.errorTextStyle}>
+          {error}
+        </Text>
 
-          {this.renderButton()}
-          <WhiteSpace />
-        </WingBlank>
-      </List>
-    );
-  }
+        {renderButton()}
+        <WhiteSpace />
+      </WingBlank>
+    </List>
+  );
 }
 
 const styles = {
@@ -91,12 +95,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
+const mapStateToProps = ({ Auth }) => {
+  const { email, password, error, loading } = Auth;
 
   return { email, password, error, loading };
 };
 
-export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser, checkUserLogin
-})(LoginForm);
+export default connect(mapStateToProps)(LoginForm);
