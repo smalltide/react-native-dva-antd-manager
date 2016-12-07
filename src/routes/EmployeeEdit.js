@@ -11,7 +11,7 @@ import {
   Flex
 } from 'antd-mobile';
 import { employeeUpdate, employeeSave, employeeDelete, clearEmployeeForm } from '../actions';
-import EmployeeForm from './EmployeeForm';
+import EmployeeForm from '../components/EmployeeForm';
 
 class EmployeeEdit extends Component {
   state = { showModal: false };

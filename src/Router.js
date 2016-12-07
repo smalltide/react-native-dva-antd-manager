@@ -1,10 +1,10 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
-import LoginForm from './components/LoginForm';
-import EmployeeList from './components/EmployeeList';
-import EmployeeCreate from './components/EmployeeCreate';
-import EmployeeEdit from './components/EmployeeEdit';
+import LoginForm from './routes/LoginForm';
+import EmployeeList from './routes/EmployeeList';
+import EmployeeCreate from './routes/EmployeeCreate';
+import EmployeeEdit from './routes/EmployeeEdit';
 
 const RouterComponent = () => {
   return (

@@ -7,7 +7,7 @@ import {
   List
 } from 'antd-mobile';
 import { employeeCreate } from '../actions';
-import EmployeeForm from './EmployeeForm';
+import EmployeeForm from '../components/EmployeeForm';
 
 class EmployeeCreate extends Component {
   onButtonPress() {
