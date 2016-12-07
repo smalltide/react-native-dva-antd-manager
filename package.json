@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "antd-mobile": "0.9.11",
+    "dva": "^1.1.0",
     "firebase": "^3.6.1",
     "lodash": "^4.17.2",
     "react": "15.3.2",
