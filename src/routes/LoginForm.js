@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { connect } from 'dva/mobile';
-import firebase from 'firebase';
 import {
   WhiteSpace,
   WingBlank,
@@ -12,24 +11,17 @@ import {
 } from 'antd-mobile';
 
 function LoginForm({ email, password, error, loading, dispatch }) {
-
-  function componentWillMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.props.checkUserLogin(user);
-    });
-  }
-
   function onEmailChange(text) {
     dispatch({
       type: 'Auth/emailChanged',
-      payload: text,
+      payload: text
     });
   }
 
   function onPasswordChange(text) {
     dispatch({
       type: 'Auth/passwordChanged',
-      payload: text,
+      payload: text
     });
   }
 

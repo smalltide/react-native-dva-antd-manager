@@ -6,10 +6,6 @@ import { Actions } from 'react-native-router-flux';
 
 class EmployeeList extends Component {
   componentWillMount() {
-    this.props.dispatch({
-      type: 'Employee/fetch'
-    });
-
     this.createDataSource(this.props);
   }
 
@@ -49,7 +45,7 @@ class EmployeeList extends Component {
 }
 
 const mapStateToProps = ({ Employee }) => {
-  const employees = _.map(Employee, (val, uid) => {
+  const employees = _.map(Employee.list, (val, uid) => {
     return { ...val, uid };
   });
   return { employees };

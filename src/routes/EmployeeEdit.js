@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'dva/mobile';
 import { text } from 'react-native-communications';
 import {
   WhiteSpace,
@@ -10,47 +10,51 @@ import {
   Modal,
   Flex
 } from 'antd-mobile';
-import { employeeUpdate, employeeSave, employeeDelete, clearEmployeeForm } from '../actions';
 import EmployeeForm from '../components/EmployeeForm';
 
 class EmployeeEdit extends Component {
-  state = { showModal: false };
-
   componentWillMount() {
     _.each(this.props.employee, (value, prop) => {
-      this.props.employeeUpdate({ prop, value });
+      this.props.dispatch({
+        type: 'Employee/formUpdate',
+        payload: { prop, value }
+      });
     });
   }
 
   componentWillUnmount() {
-    this.props.clearEmployeeForm();
+    this.props.dispatch({ type: 'Employee/clearForm' });
   }
 
   onSaveButtonPress() {
     const { name, phone, shift } = this.props;
 
-    this.props.employeeSave({ name, phone, shift, uid: this.props.employee.uid });
+    this.props.dispatch({
+      type: 'Employee/updateEmployee',
+      payload: { name, phone, shift, uid: this.props.employee.uid }
+    });
   }
 
   onTextPress() {
     const { phone, shift } = this.props;
-
     text(phone, `Your upcoming shift is on ${shift}`);
   }
 
   onDeleteButtonPress() {
-    this.setState({ showModal: !this.state.showModal });
+     this.props.dispatch({ type: 'Employee/showModal' });
   }
 
   onAccept() {
     const { uid } = this.props.employee;
 
-    this.props.employeeDelete({ uid });
-    this.setState({ showModal: false });
+    this.props.dispatch({
+      type: 'Employee/deleteEmployee',
+      payload: { uid }
+    });
   }
 
   onDecline() {
-    this.setState({ showModal: false });
+    this.props.dispatch({ type: 'Employee/hideModal' });
   }
 
   render() {
@@ -77,7 +81,7 @@ class EmployeeEdit extends Component {
           style={{ height: 100, width: 350 }}
           title="Are you sure you want to delete this?"
           transparent
-          visible={this.state.showModal}
+          visible={this.props.modalVisible}
         >
           <WingBlank>
             <WhiteSpace size="sm" />
@@ -96,12 +100,10 @@ class EmployeeEdit extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.employeeForm;
+const mapStateToProps = ({ Employee }) => {
+  const { name, phone, shift } = Employee.form;
 
-  return { name, phone, shift };
+  return { name, phone, shift, modalVisible: Employee.modalVisible };
 };
 
-export default connect(mapStateToProps, {
-  employeeUpdate, employeeSave, employeeDelete, clearEmployeeForm
-})(EmployeeEdit);
+export default connect(mapStateToProps)(EmployeeEdit);

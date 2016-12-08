@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
+import { signInWithEmailAndPassword } from '../services/Employee';
 
 const INITIAL_STATE = {
   email: '',
@@ -38,19 +38,8 @@ export default {
 
       if (user) {
         yield put({ type: 'loginSuccess', payload: user });
-        Actions.main();
       } else if (err) {
         yield put({ type: 'loginFail' });
-      }
-    },
-    * checkLogin({ payload }, { put }) {
-      if (payload) {
-        yield put({
-          type: 'loginSuccess',
-          payload
-        });
-      } else {
-        Actions.auth();
       }
     }
   },
@@ -67,13 +56,3 @@ export default {
     }
   }
 };
-
-function signInWithEmailAndPassword(email, password) {
-  return firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((user) => ({ user }))
-    .catch(() => {
-      return firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((user) => ({ user }))
-        .catch((err) => ({ err }));
-    });
-}

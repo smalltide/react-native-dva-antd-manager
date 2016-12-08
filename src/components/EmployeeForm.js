@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Picker, Text, View } from 'react-native';
-import { connect } from 'react-redux';
+import { connect } from 'dva/mobile';
 import {
   InputItem,
   List
 } from 'antd-mobile';
-import { employeeUpdate } from '../actions';
 
 class EmployeeForm extends Component {
   render() {
@@ -15,14 +14,20 @@ class EmployeeForm extends Component {
           clear
           value={this.props.name}
           placeholder="Jane"
-          onChange={value => this.props.employeeUpdate({ prop: 'name', value })}
+          onChange={value => this.props.dispatch({
+            type: 'Employee/formUpdate',
+            payload: { prop: 'name', value }
+          })}
         >Name</InputItem>
 
         <InputItem
           clear
           value={this.props.phone}
           placeholder="123-456-789"
-          onChange={value => this.props.employeeUpdate({ prop: 'phone', value })}
+          onChange={value => this.props.dispatch({
+            type: 'Employee/formUpdate',
+            payload: { prop: 'phone', value }
+          })}
         >Phone</InputItem>
 
         <List.Item style={{ flex: 0 }}>
@@ -30,7 +35,10 @@ class EmployeeForm extends Component {
             <Text style={styles.pickerTextStyle}>Shift</Text>
             <Picker
               selectedValue={this.props.shift}
-              onValueChange={day => this.props.employeeUpdate({ prop: 'shift', value: day })}
+              onValueChange={day => this.props.dispatch({
+                type: 'Employee/formUpdate',
+                payload: { prop: 'shift', value: day }
+              })}
             >
               <Picker.Item label="Monday" value="Monday" />
               <Picker.Item label="Tuesday" value="Tuesday" />
@@ -54,10 +62,10 @@ const styles = {
   }
 };
 
-const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.employeeForm;
+const mapStateToProps = ({ Employee }) => {
+  const { name, phone, shift } = Employee.form;
 
   return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeUpdate })(EmployeeForm);
+export default connect(mapStateToProps)(EmployeeForm);

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect } from 'dva/mobile';
 import {
   WhiteSpace,
   WingBlank,
   Button,
   List
 } from 'antd-mobile';
-import { employeeCreate } from '../actions';
 import EmployeeForm from '../components/EmployeeForm';
 
 class EmployeeCreate extends Component {
   onButtonPress() {
     const { name, phone, shift } = this.props;
-
-    this.props.employeeCreate({ name, phone, shift: shift || 'Monday' });
+    this.props.dispatch({
+      type: 'Employee/createEmployee',
+      payload: { name, phone, shift }
+    });
   }
 
   render() {
@@ -32,10 +33,10 @@ class EmployeeCreate extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { name, phone, shift } = state.employeeForm;
+const mapStateToProps = ({ Employee }) => {
+  const { name, phone, shift } = Employee.form;
 
   return { name, phone, shift };
 };
 
-export default connect(mapStateToProps, { employeeCreate })(EmployeeCreate);
+export default connect(mapStateToProps)(EmployeeCreate);
