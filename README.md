@@ -1,7 +1,7 @@
 # react-native-dva-antd-manager
 use react native, dva Framework, antd-mobile UI, redux, navigator router, Google firebase and lodash to create a team manager app
-
-![alt text](https://github.com/smalltide/react-native-dva-antd-manager/blob/master/screenshot.git "react-native-dva-antd-manager")
+            
+![alt text](https://github.com/smalltide/react-native-dva-antd-manager/blob/master/screenshot.gif "react-native-dva-antd-manager")
 
 1. react native
 2. dva Framework
